@@ -33,5 +33,5 @@
 </body>
 </html>
 <footer>
-    <p>Version: 1.5</p>
+    <p>Version: 2.0</p>
 </footer>
