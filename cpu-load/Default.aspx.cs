@@ -69,8 +69,8 @@ public partial class _Default : System.Web.UI.Page
     {
       string output = @"\\az-sofs.fusion.local\logs\test.txt";
       string[] lines = { "Hello", "World!" };
-      string srcfile = @"C:\temp\tetfile.txt";
-      string destfile = @"\\az-sofs.fusion.local\logs\testfile.txt";
+      string srcfile = @"C:\temp\TI_PRESTG.cache";
+      string destfile = @"\\az-sofs.fusion.local\logs\TI_PRESTG.cache";
 
       var watchwrite = System.Diagnostics.Stopwatch.StartNew();
       File.WriteAllLines(output, lines);
