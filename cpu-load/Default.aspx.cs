@@ -10,6 +10,9 @@ using System.Web.UI.WebControls;
 
 public partial class _Default : System.Web.UI.Page
 {
+  public string writeSec;
+  public string copySec;
+
   protected void Page_Load(object sender, EventArgs e)
   {
     lblHostname.Text = Environment.MachineName;
@@ -60,13 +63,25 @@ public partial class _Default : System.Web.UI.Page
     }
   }
 
-  protected void generateLog_Click(object sender, EventArgs e)
+  protected void fileOps_Click(object sender, EventArgs e)
   {
     try
     {
-      string output = @"\\az-sofs.fusion.local\logs\test.txt"; // UNC path
+      string output = @"\\az-sofs.fusion.local\logs\test.txt";
       string[] lines = { "Hello", "World!" };
+      string srcfile = @"C:\temp\tetfile.txt";
+      string destfile = @"\\az-sofs.fusion.local\logs\testfile.txt";
+
+      var watchwrite = System.Diagnostics.Stopwatch.StartNew();
       File.WriteAllLines(output, lines);
+      watchwrite.Stop();
+      this.writeSec = watchwrite.Elapsed.TotalSeconds.ToString();
+
+      var watchcopy = System.Diagnostics.Stopwatch.StartNew();
+      File.Copy(srcfile, destfile, true);
+      watchcopy.Stop();
+      this.copySec = watchcopy.Elapsed.TotalSeconds.ToString();
+
     }
     catch (System.Exception ex)
     {
