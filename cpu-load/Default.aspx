@@ -36,7 +36,7 @@
       <br />
       <br />
       <p style="text-align: center">
-        Path of local file to copy
+        Path of file on server to copy
         <asp:TextBox ID="srcFile" runat="server"></asp:TextBox>
       </p>
       <p style="text-align: center">
