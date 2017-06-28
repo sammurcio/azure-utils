@@ -1,4 +1,4 @@
-<%@ Page Language="C#" AutoEventWireup="true" CodeFile="Default.aspx.cs" Inherits="_Default" %>
+<%@ Page Language="C#" AutoEventWireup="true" CodeFile="Default.aspx.cs" Inherits="_Default" Debug="true"%>
 
 <!DOCTYPE html>
 
@@ -9,41 +9,53 @@
 <body>
     <form id="form1" runat="server">
     <div>
-    
-        <p style="text-align: center">
-            Server you are on:&nbsp;
-            <asp:Label ID="lblHostname" runat="server"></asp:Label>
-        </p>
-        <p style="text-align: center">
-            *This is a multi-threaded test, if accessed through LB it will only load the server displayed above.</p>
-        <p>
-            &nbsp;</p>
-        <p style="margin-left: 160px">
-            &nbsp;How long to generate CPU load in seconds
-            <asp:TextBox ID="txtTime" runat="server"></asp:TextBox>
-            &nbsp;</p>
-        <p style="margin-left: 160px">
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-            <br />
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-            <asp:Button ID="btnMaxCPU" runat="server" OnClick="btnMaxCPU_Click" Text="Generate workload" />
-        </p>
-        <p style="margin-left: 160px">
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-            <br />
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-            <asp:Button ID="generateLog" runat="server" OnClick="fileOps_Click" Text="File Operations"/>
-            <br />
-            <br />
-            &nbsp;How long it took in seconds to write sample log file: <%=writeSec%>
-            &nbsp;
-            <br />
-            &nbsp;How long it took in seconds to copy the specified file: <%=copySec%>
-        </p>
+      <p style="text-align: center; font-size:x-large; font-weight:bold">
+          Server you are on:&nbsp;
+          <asp:Label ID="lblHostname" runat="server"></asp:Label>
+      </p>
+      <br />
+      <p style="text-align: center">
+        How long to generate CPU load in seconds
+        <asp:TextBox ID="txtTime" runat="server"></asp:TextBox>
+      </p>
+      <p style="text-align: center">
+        *This is a multi-threaded test, if accessed through LB it will only load the server displayed above.
+      </p>
+      <p style="text-align: center">
+        <br />
+        <asp:Button ID="btnMaxCPU" runat="server" OnClick="btnMaxCPU_Click" Text="Generate workload" />
+      </p>
+      <br />
+      <br />
+      <p style="text-align: center">
+        How long it took to write sample log file: <%=writeSec%> seconds
+      </p>
+      <p style="text-align: center">
+        <asp:Button ID="generateLog" runat="server" OnClick="btnLogWrite_Click" Text="Write Log File"/>
+      </p>
+      <br />
+      <br />
+      <p style="text-align: center">
+        Path of local file to copy
+        <asp:TextBox ID="srcFile" runat="server"></asp:TextBox>
+      </p>
+      <p style="text-align: center">
+        Destination path of file
+        <asp:TextBox ID="destPath" runat="server"></asp:TextBox>
+      </p>
+      <p style="text-align: center">
+        Size of the specified file: <%=filesize%> MBs
+      </p>
+      <p style="text-align: center">
+        How long it took to copy the specified file: <%=copySec%> seconds
+      </p>
+      <p style="text-align: center">
+        <asp:Button ID="copyFile" runat="server" OnClick="btnCopyFile_Click" Text="Copy File"/>
+      </p>
     </div>
     </form>
 </body>
 </html>
 <footer>
-    <p>Version: 2.0</p>
+    <p>Version: 3.0</p>
 </footer>
