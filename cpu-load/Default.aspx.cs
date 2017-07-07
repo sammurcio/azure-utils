@@ -5,9 +5,11 @@ using System.Threading;
 using System.Threading.Tasks;
 using System.Diagnostics;
 using System.Linq;
+using System.Runtime.InteropServices;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
+using System.ComponentModel;
 
 /// <summary>
 /// Provides access to a network share.
@@ -237,6 +239,9 @@ public partial class _Default : System.Web.UI.Page
   public string writeSec;
   public string copySec;
   public string filesize;
+  public string copysecazfs;
+  public string filesizeazfs;
+  public string destpathazfs;
 
   protected void Page_Load(object sender, EventArgs e)
   {
@@ -318,12 +323,41 @@ public partial class _Default : System.Web.UI.Page
       this.filesize = ((fi / 1024f) / 1024f).ToString();
 
       var watchcopy = System.Diagnostics.Stopwatch.StartNew();
-      using (NetworkShareAccesser.Access(fususeuatfs0.file.core.windows.net, AZURE, fususeuatfs0, @"Rpb5LJ01AuiJplJ5qnHgtpZ/ifgUZ5PIHz966QH5TM8mgfUkn7aFe5hbRGnakQ5qi04C79P0HZ/NjJi0iYtfVw=="))
-      {
-        File.Copy(srcfile, destpath, true);
-      }
+      File.Copy(srcfile, destpath, true);
       watchcopy.Stop();
       this.copySec = watchcopy.Elapsed.TotalSeconds.ToString();
+    }
+    catch (System.Exception ex)
+    {
+      throw ex;
+    }
+  }
+
+  protected void btnCopyFileAZFS_Click(object sender, EventArgs e)
+  {
+    try
+    {
+      string srcfile = srcFile2.Text;
+      string saccountname = sAccountName.Text;
+      string sharename = shareName.Text;
+      string accesskey = accessKey.Text;
+
+      string remotehost = string.Format(@"{0}.file.core.windows.net", saccountname);
+
+      string[] separators = { "\\", "/" };
+      string filename = srcfile.Split(separators, StringSplitOptions.RemoveEmptyEntries).LastOrDefault();
+      this.destpathazfs = string.Format(@"\\{0}\{1}\{2}", remotehost, sharename, filename);
+
+      long fi = new FileInfo(srcfile).Length;
+      this.filesizeazfs = ((fi / 1024f) / 1024f).ToString();
+
+      var watchcopy = System.Diagnostics.Stopwatch.StartNew();
+      using (NetworkShareAccesser.Access(remotehost, @"AZURE", saccountname, accesskey))
+      {
+        File.Copy(srcfile, destpathazfs, true);
+      }
+      watchcopy.Stop();
+      this.copysecazfs = watchcopy.Elapsed.TotalSeconds.ToString();
     }
     catch (System.Exception ex)
     {
